@@ -9,7 +9,7 @@
   </a>
 </p>
 
-a go job processor which managest the orchestration of concurrent jobs with a generic interface for easy portability
+a go job processor which manages the orchestration of concurrent jobs with a generic interface for easy portability
 
 ## Requirements
 
