@@ -141,3 +141,21 @@ func TestProcess_retries_error(t *testing.T) {
 	assert.Len(errs, 1)
 	assert.Contains(errs[0].Error(), num)
 }
+
+func TestProcess_context_cancelled(t *testing.T) {
+	assert := assert.New(t)
+
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+
+	errs := Process(
+		ctx,
+		[]string{"a"},
+		func(item string) error {
+			return nil
+		},
+		nil,
+	)
+	assert.Len(errs, 1)
+	assert.ErrorIs(errs[0], context.Canceled)
+}
