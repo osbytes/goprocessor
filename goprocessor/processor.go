@@ -8,10 +8,10 @@ import (
 )
 
 type Options struct {
+	GracefulShutdown   bool // allow any currently running go routines to finish processing
 	MaxConcurrentItems int
-	RetryMaxPerItem    uint
-	RetryLastErrorOnly bool
-	GracefulShutdown   bool
+	RetryLastErrorOnly bool // when retrying a job, return only the last error that occured
+	RetryMaxPerItem    uint // maximum number of retries per item. 0 or empty will disable retries
 }
 
 func Process[T any](ctx context.Context, items []T, fn func(item T) error, opts *Options) []error {
