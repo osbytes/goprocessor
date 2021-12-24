@@ -2,7 +2,6 @@ package goprocessor
 
 import (
 	"context"
-	"fmt"
 	"sync"
 
 	"github.com/avast/retry-go"
@@ -65,7 +64,6 @@ func Process[T any](ctx context.Context, items []T, fn func(item T) error, opts 
 
 			default:
 				if maxRetriesPerItem > 0 {
-					fmt.Println(maxRetriesPerItem)
 					err := retry.Do(func() error {
 						return fn(it)
 					}, retry.Attempts(maxRetriesPerItem), retry.LastErrorOnly(retryLastErrorOnly)) // TOOD: allow more configuration on this retry
